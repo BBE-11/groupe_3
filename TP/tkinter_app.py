@@ -153,7 +153,6 @@ def list_student():
             Email VARCHAR(50),
             Age VARCHAR(50)
             );""")
-    clear_all()
     # Insertion des données au sein de l ’ objet Treeview
     for row in result:
         tree.insert( '' , 'end' , values =(row[0] , row[1] , row[2] ,row[3]) )
