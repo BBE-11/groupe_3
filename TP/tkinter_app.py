@@ -110,6 +110,50 @@ class Etudiant(object):
         self.fenetre.mainloop()
         #cancel.bind('<Button-1>',self.fenetre.mainloop())
         self.fenetre.mainloop()
+    def modifier_form(self):
+        select = tree .item(tree.selection())['values']
+        #print(select)
+        text = Label (self.fenetre, text = "Modifier un étudiant",font="Algerian 16 bold" )
+        Nom = Label (self.fenetre, text = "Nom : " )
+        Email = Label (self.fenetre, text="Email : ")
+        Age = Label (self.fenetre, text="Age : ")
+        champNom = Entry (self.fenetre)
+        champEmail = Entry (self.fenetre)
+        champAge = Entry (self.fenetre)
+        champNom.insert(0,str(select[1]))
+        champEmail.insert(0,str(select[2]))
+        champAge.insert(0,str(select[3]))
+        btn_edit = ttk.Button(self.fenetre,text="Modifier",style="BW.TButton")
+        #cancel = ttk.Button(self.fenetre,text="Anuler",style="BW.TButton")
+        #Application de la méthode place () aux widget
+        text.place(x=75, y=20)
+        Nom. place (x=5, y=75, width=160, height=25)
+        champNom. place (x=175, y=75, width=230, height=25)
+        Email. place (x=5, y=120, width=160, height=25)
+        champEmail. place (x=175, y=120, width=230, height=25)
+
+        Age.place(x=5, y=165, width=160, height=25)
+        champAge.place (x=175, y=165, width=230, height=25)
+        btn_edit.place(x=175, y=205)
+        #cancel.place (x=260, y=205)
+
+        def champs(event):
+            nom = champNom.get()
+            email = champEmail.get()
+            age = champAge.get()
+
+            etudiant = E(
+                nom=nom,
+                email=email,
+                age=age
+            )
+            etudiant.set_id(select[0])
+            etudiant.update()
+            self.fenetre.destroy()
+
+        btn_edit.bind('<Button-1>', champs)
+        #cancel.bind('<Button-1>',self.fenetre.mainloop())
+        self.fenetre.mainloop()
 
 def add_btn_(event):
     e = Etudiant()
