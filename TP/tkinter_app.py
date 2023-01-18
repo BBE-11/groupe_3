@@ -55,7 +55,7 @@ class E(object):
                 f"DELETE FROM students WHERE ID = {self.get_id()}"
             )
             self.conn.commit()
-        except Exception as e: 
+        except Exception as e:
             print(f"Error deleting students : {e}")
     def update(self):
         try:
@@ -63,7 +63,7 @@ class E(object):
                 f"UPDATE students SET Nom='{self.get_nom()}',Email ='{self.get_email()}',Age='{self.get_age()}' WHERE ID = {self.get_id()}"
             )
             self.conn.commit()
-        except Exception as e: 
+        except Exception as e:
             print(f"Error updating students : {e}")
 
 class Etudiant(object):
@@ -139,6 +139,9 @@ tree.heading(1 , text="ID")
 tree.heading(2 , text="Nom")
 tree.heading(3 , text="Email")
 tree.heading(4 , text="Age")
+def clear_all():
+   for item in tree.get_children():
+      tree.delete(item)
 def list_student():
     conn = sqlite3.connect ('mabase. db') # Connexion à la base de données mabase.db
 # === Création d ’un cursor et sélection des données ===
@@ -153,6 +156,7 @@ def list_student():
             Email VARCHAR(50),
             Age VARCHAR(50)
             );""")
+    clear_all()
     # Insertion des données au sein de l ’ objet Treeview
     for row in result:
         tree.insert( '' , 'end' , values =(row[0] , row[1] , row[2] ,row[3]) )
@@ -161,7 +165,7 @@ list_student()
 def edit (event) :
     e = Etudiant()
     e.modifier_form()
-    
+
 
 def delete (event) :
     select = tree .item(tree.selection())['values']
@@ -174,7 +178,7 @@ def delete (event) :
     etudiant.delete()
 
 def update_list(event):
-    print("Hello")    
+    print("Hello")
 edit_btn.bind ("<Button-1>" ,  edit)
 delete_btn.bind ("<Button-1>" , delete)
 update_btn.bind ("<Button-1>" , update_list)
